@@ -30,6 +30,10 @@ But adding the whole place manually seems like a bit stupid use of time.
 
 ## Usage
 
+Here's an example which reads information of the restaurant called "SYÖMÄÄN" in Valkeakoski Finland. 
+
+If you run following commands you will get the xml output below:
+
 ```
 $ brew install uv
 $ uv venv
