@@ -44,7 +44,7 @@ Produces following output:
 
 ```xml
 <osm version="0.6" generator="duckdb-overture2osm">
-    <changeset id="1" created_at="2025-08-19T13:04:36.268982">
+    <changeset id="1" created_at="2025-08-20T16:47:30.587151">
         <tag k="created_by" v="duckdb-overture2osm" />
         <tag k="comment" v="Add place SYÖMÄÄN from Overture Maps" />
     </changeset>
@@ -53,7 +53,8 @@ Produces following output:
         <tag k="amenity" v="restaurant" />
         <tag k="website" v="http://www.syomaan.net/" />
         <tag k="contact:facebook" v="https://www.facebook.com/101807046049128" />
-        <tag k="addr:full" v="Valtakatu 27-29" />
+        <tag k="addr:street" v="Valtakatu" />
+        <tag k="addr:housenumber" v="27-29" />
         <tag k="addr:city" v="Valkeakoski" />
         <tag k="addr:postcode" v="37600" />
         <tag k="addr:country" v="FI" />
@@ -61,7 +62,7 @@ Produces following output:
 </osm>
 ```
 
-I would then want to upload this changeset to OSM and then on next changeset to add the missing details.
+I would then want to upload this changeset to OSM and then on next changeset adding the missing details.
 
 It's not possible to tag information like wheelchair entrances or toilets directly to OvertureMaps so this should be win win for both ecosystems.
 

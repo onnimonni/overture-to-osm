@@ -2,6 +2,7 @@ import duckdb
 import xml.etree.ElementTree as ET
 import datetime
 import argparse
+import re
 from country_bounding_boxes import (
     country_subunits_by_iso_code
 )
@@ -75,7 +76,18 @@ def generate_osm_changeset_xml(name, category, country_code):
     if data.get("addresses"):
         addr = data["addresses"][0]
         if addr.get("freeform"):
-            ET.SubElement(node, "tag", k="addr:full", v=addr["freeform"])
+            freeform_address = addr["freeform"]
+            # Try to split street name and house number.
+            # This regex looks for a space followed by numbers/letters/hyphens at the end of the string.
+            match = re.search(r'\s+([\w\d-]+)$', freeform_address)
+            if match:
+                housenumber = match.group(1)
+                street = freeform_address[:match.start()].strip()
+                ET.SubElement(node, "tag", k="addr:street", v=street)
+                ET.SubElement(node, "tag", k="addr:housenumber", v=housenumber)
+            else:
+                # If no clear house number is found at the end, assume the whole string is the street.
+                ET.SubElement(node, "tag", k="addr:street", v=freeform_address)
         if addr.get("locality"):
             ET.SubElement(node, "tag", k="addr:city", v=addr["locality"])
         if addr.get("postcode"):
@@ -96,4 +108,5 @@ if __name__ == "__main__":
     args = parser.parse_args()
 
     xml_output = generate_osm_changeset_xml(args.name, args.category, args.country)
+    
     print(xml_output)
